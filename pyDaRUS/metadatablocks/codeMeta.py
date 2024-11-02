@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 
@@ -203,7 +203,6 @@ class CodeMeta(DataverseBase):
     )
     _metadatablock_name: Optional[str] = 'codeMeta'
 
-
     def add_software_requirements(
         self,
         name: Optional[str] = None,
@@ -212,18 +211,13 @@ class CodeMeta(DataverseBase):
         """Function used to add an instance of SoftwareRequirements to the metadatablock.
 
         Args:
-        
+
             name (string): Name or title of the required software/library
             url (string): Link to required software/library
 
         """
 
-        self.software_requirements.append(
-            SoftwareRequirements(
-                name=name, url=url
-            )
-        )
-
+        self.software_requirements.append(SoftwareRequirements(name=name, url=url))
 
     def add_software_suggestions(
         self,
@@ -233,14 +227,10 @@ class CodeMeta(DataverseBase):
         """Function used to add an instance of SoftwareSuggestions to the metadatablock.
 
         Args:
-        
+
             name (string): Name or title of the optional software/library
             url (string): Link to optional software/library
 
         """
 
-        self.software_suggestions.append(
-            SoftwareSuggestions(
-                name=name, url=url
-            )
-        )
+        self.software_suggestions.append(SoftwareSuggestions(name=name, url=url))

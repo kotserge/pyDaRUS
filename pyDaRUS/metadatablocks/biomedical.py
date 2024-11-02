@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional, Union
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 

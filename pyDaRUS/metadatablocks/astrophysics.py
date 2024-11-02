@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional, Union
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 
@@ -239,7 +239,6 @@ class Astrophysics(DataverseBase):
     )
     _metadatablock_name: Optional[str] = 'astrophysics'
 
-
     def add_dataset_date_range(
         self,
         start: Optional[str] = None,
@@ -248,18 +247,13 @@ class Astrophysics(DataverseBase):
         """Function used to add an instance of DatasetDateRange to the metadatablock.
 
         Args:
-        
+
             start (string): Dataset Start Date
             end (string): Dataset End Date
 
         """
 
-        self.dataset_date_range.append(
-            DatasetDateRange(
-                start=start, end=end
-            )
-        )
-
+        self.dataset_date_range.append(DatasetDateRange(start=start, end=end))
 
     def add_redshift_value(
         self,
@@ -269,18 +263,13 @@ class Astrophysics(DataverseBase):
         """Function used to add an instance of RedshiftValue to the metadatablock.
 
         Args:
-        
+
             minimum (number): The minimum value of the redshift (unitless) or Doppler velocity (km/s in the data object.
             maximum (number): The maximum value of the redshift (unitless) or Doppler velocity (km/s in the data object.
 
         """
 
-        self.redshift_value.append(
-            RedshiftValue(
-                minimum=minimum, maximum=maximum
-            )
-        )
-
+        self.redshift_value.append(RedshiftValue(minimum=minimum, maximum=maximum))
 
     def add_wavelength_range(
         self,
@@ -290,14 +279,10 @@ class Astrophysics(DataverseBase):
         """Function used to add an instance of WavelengthRange to the metadatablock.
 
         Args:
-        
+
             minimum_(m) (number): The minimum wavelength of the spectral bandpass, in meters.
             maximum_(m) (number): The maximum wavelength of the spectral bandpass, in meters.
 
         """
 
-        self.wavelength_range.append(
-            WavelengthRange(
-                extra_data=extra_data
-            )
-        )
+        self.wavelength_range.append(WavelengthRange(extra_data=extra_data))

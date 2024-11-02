@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 
@@ -201,7 +201,6 @@ class Socialscience(DataverseBase):
     )
     _metadatablock_name: Optional[str] = 'socialscience'
 
-
     def add_notes(
         self,
         type: Optional[str] = None,
@@ -211,19 +210,14 @@ class Socialscience(DataverseBase):
         """Function used to add an instance of Notes to the metadatablock.
 
         Args:
-        
+
             type (string): Type of note.
             subject (string): Note subject.
             text (string): Text for this note.
 
         """
 
-        self.notes.append(
-            Notes(
-                type=type, subject=subject, text=text
-            )
-        )
-
+        self.notes.append(Notes(type=type, subject=subject, text=text))
 
     def add_target_sample_size(
         self,
@@ -233,14 +227,10 @@ class Socialscience(DataverseBase):
         """Function used to add an instance of TargetSampleSize to the metadatablock.
 
         Args:
-        
+
             actual (integer): Actual sample size.
             formula (string): Formula used to determine target sample size.
 
         """
 
-        self.target_sample_size.append(
-            TargetSampleSize(
-                actual=actual, formula=formula
-            )
-        )
+        self.target_sample_size.append(TargetSampleSize(actual=actual, formula=formula))

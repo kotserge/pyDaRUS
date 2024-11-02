@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 
@@ -91,7 +91,6 @@ class Journal(DataverseBase):
     )
     _metadatablock_name: Optional[str] = 'journal'
 
-
     def add_journal_data(
         self,
         volume: Optional[str] = None,
@@ -101,7 +100,7 @@ class Journal(DataverseBase):
         """Function used to add an instance of JournalData to the metadatablock.
 
         Args:
-        
+
             volume (string): The journal volume which this Dataset is associated with (e.g., Volume 4).
             issue (string): The journal issue number which this Dataset is associated with (e.g., Number 2, Autumn).
             publication_date (string): The publication date for this journal volume/issue, which this Dataset is associated with (e.g., 1999).
@@ -109,7 +108,5 @@ class Journal(DataverseBase):
         """
 
         self.journal_data.append(
-            JournalData(
-                volume=volume, issue=issue, publication_date=publication_date
-            )
+            JournalData(volume=volume, issue=issue, publication_date=publication_date)
         )

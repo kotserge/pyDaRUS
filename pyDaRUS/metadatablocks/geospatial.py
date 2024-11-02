@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 
@@ -361,7 +361,6 @@ class Geospatial(DataverseBase):
     )
     _metadatablock_name: Optional[str] = 'geospatial'
 
-
     def add_geographic_bounding_box(
         self,
         west_longitude: Optional[str] = None,
@@ -372,7 +371,7 @@ class Geospatial(DataverseBase):
         """Function used to add an instance of GeographicBoundingBox to the metadatablock.
 
         Args:
-        
+
             west_longitude (string): Westernmost coordinate delimiting the geographic extent of the Dataset. A valid range of values,  expressed in decimal degrees, is -180,0 <= West  Bounding Longitude Value <= 180,0.
             east_longitude (string): Easternmost coordinate delimiting the geographic extent of the Dataset. A valid range of values,  expressed in decimal degrees, is -180,0 <= East Bounding Longitude Value <= 180,0.
             north_latitude (string): Northernmost coordinate delimiting the geographic extent of the Dataset. A valid range of values,  expressed in decimal degrees, is -90,0 <= North Bounding Latitude Value <= 90,0.
@@ -382,10 +381,12 @@ class Geospatial(DataverseBase):
 
         self.geographic_bounding_box.append(
             GeographicBoundingBox(
-                west_longitude=west_longitude, east_longitude=east_longitude, north_latitude=north_latitude, south_latitude=south_latitude
+                west_longitude=west_longitude,
+                east_longitude=east_longitude,
+                north_latitude=north_latitude,
+                south_latitude=south_latitude,
             )
         )
-
 
     def add_geographic_coverage(
         self,
@@ -397,7 +398,7 @@ class Geospatial(DataverseBase):
         """Function used to add an instance of GeographicCoverage to the metadatablock.
 
         Args:
-        
+
             country___nation (Enum): The country or nation that the Dataset is about.
             state___province (string): The state or province that the Dataset is about. Use GeoNames for correct spelling and avoid abbreviations.
             city (string): The name of the city that the Dataset is about. Use GeoNames for correct spelling and avoid abbreviations.
@@ -407,6 +408,9 @@ class Geospatial(DataverseBase):
 
         self.geographic_coverage.append(
             GeographicCoverage(
-                country___nation=country___nation, state___province=state___province, city=city, other=other
+                country___nation=country___nation,
+                state___province=state___province,
+                city=city,
+                other=other,
             )
         )

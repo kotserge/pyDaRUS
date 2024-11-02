@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 
@@ -398,7 +398,6 @@ class EnzymeMl(DataverseBase):
     )
     _metadatablock_name: Optional[str] = 'enzymeML'
 
-
     def add_kinetic_law(
         self,
         name: Optional[str] = None,
@@ -408,7 +407,7 @@ class EnzymeMl(DataverseBase):
         """Function used to add an instance of KineticLaw to the metadatablock.
 
         Args:
-        
+
             name (string): Specifies the conventional name of the kinetic law that has been used. For instance 'Reversible Michaelis-Menten'.
             reaction_reference (string): Specifies the reaction that has beeen modeled by the given kinetic law.
             kinetic_model (string): Specifies the mathematical equation of the given kinetic law. For variables that reference entities that are part of this EnzymeML document, please use the given identifier. Parameters will be defined in another field and are referenced by their conventional names. For instance, the following equation denotes a valid kinetic model  'vmax  * s1 / ( km + s1 )'.
@@ -417,10 +416,11 @@ class EnzymeMl(DataverseBase):
 
         self.kinetic_law.append(
             KineticLaw(
-                name=name, reaction_reference=reaction_reference, kinetic_model=kinetic_model
+                name=name,
+                reaction_reference=reaction_reference,
+                kinetic_model=kinetic_model,
             )
         )
-
 
     def add_kinetic_parameters(
         self,
@@ -432,7 +432,7 @@ class EnzymeMl(DataverseBase):
         """Function used to add an instance of KineticParameters to the metadatablock.
 
         Args:
-        
+
             name (string): Specifies the conventional name of the kinetic paramter that has been estimated. For instance, 'vmax' is a valid name for a parameter. Please note, that for unique identification the SBO Term should be included.
             value (number): Specifies the numerical value of the estimated kinetic parameter.
             unit (string): Specifies the SI unit of the estimated kinetic parameter.
@@ -441,11 +441,8 @@ class EnzymeMl(DataverseBase):
         """
 
         self.kinetic_parameters.append(
-            KineticParameters(
-                name=name, value=value, unit=unit, sbo_term=sbo_term
-            )
+            KineticParameters(name=name, value=value, unit=unit, sbo_term=sbo_term)
         )
-
 
     def add_proteins(
         self,
@@ -464,7 +461,7 @@ class EnzymeMl(DataverseBase):
         """Function used to add an instance of Proteins to the metadatablock.
 
         Args:
-        
+
             identifier (string): Specifies the internal identifier of the protein. Please follow the convention of denote a protein entity by a 'p' followed by an integer. For instance, 'p1' is a valid ID.
             name (string): Specifies the convential name of the protein. Please note that this field on purpose can not be unique since protein/enzyme names vary in between fields. Use the amino acid sequence, UniProtID and/or EC number for a unique identification.
             vessel_reference (string): Specifies the name of the vessel in which the protein was given. If the protein was part of multiple reactions carried out in different vessel, please separated these via semicolon ';'.
@@ -481,10 +478,19 @@ class EnzymeMl(DataverseBase):
 
         self.proteins.append(
             Proteins(
-                identifier=identifier, name=name, vessel_reference=vessel_reference, initial_concentration=initial_concentration, unit=unit, constant=constant, sequence=sequence, organism=organism, uniprotid=uniprotid, ecnumber=ecnumber, sbo_term=sbo_term
+                identifier=identifier,
+                name=name,
+                vessel_reference=vessel_reference,
+                initial_concentration=initial_concentration,
+                unit=unit,
+                constant=constant,
+                sequence=sequence,
+                organism=organism,
+                uniprotid=uniprotid,
+                ecnumber=ecnumber,
+                sbo_term=sbo_term,
             )
         )
-
 
     def add_reactants(
         self,
@@ -501,7 +507,7 @@ class EnzymeMl(DataverseBase):
         """Function used to add an instance of Reactants to the metadatablock.
 
         Args:
-        
+
             identifier (string): Specifies the internal identifier of the reactant. Please follow the convention of denote a reactant entity by an 's' followed by an integer. For instance, 's1' is a valid ID.
             name (string): Specifies the conventional or systematic name of the given reactant. Please note that this field on purpose can not be unique since molecule names vary in between fields. Please use either the InChI or SMILES code for a unique identification.
             vessel_reference (string): Specifies the vessel in which the reactant was given. If the reactant was part of multiple reactions carried out in different vessel, please separated these via semicolon ';'.
@@ -516,10 +522,17 @@ class EnzymeMl(DataverseBase):
 
         self.reactants.append(
             Reactants(
-                identifier=identifier, name=name, vessel_reference=vessel_reference, initial_concentration=initial_concentration, unit=unit, constant=constant, inchicode=inchicode, smilescode=smilescode, sbo_term=sbo_term
+                identifier=identifier,
+                name=name,
+                vessel_reference=vessel_reference,
+                initial_concentration=initial_concentration,
+                unit=unit,
+                constant=constant,
+                inchicode=inchicode,
+                smilescode=smilescode,
+                sbo_term=sbo_term,
             )
         )
-
 
     def add_reactions(
         self,
@@ -535,7 +548,7 @@ class EnzymeMl(DataverseBase):
         """Function used to add an instance of Reactions to the metadatablock.
 
         Args:
-        
+
             name (string): Specifies the conventional name of the reaction such as 'Alcohol dehydrogenation'. Please note, that this field on purpose can not be uniqe, since names vary in between fields and newly acquired reactions might not have a conventional name yet.
             temperature_value (number): Specifies the temperature value at which the experiment was executed.
             temperature_unit (Enum): Specifies the corresponding SI unit to the temperature value.
@@ -543,16 +556,22 @@ class EnzymeMl(DataverseBase):
             educts (string): Specifies the participating reactants/proteins which serve as educts. If multiple educts have been used, separate each of them via semicolon ';'.
             products (string): Specifies the participating reactants/proteins which serve as products. If multiple products have been used, separate each of them via semicolon ';'.
             modifiers (string): Specifies the participating reactants/proteins which serve as modifiers. For instance catalysing proteins should be entered as modifiers, which is the same for activators/inhibitors. If multiple modifiers have been used, separate each of them via semicolon ';'.
-            equation (string): Specifies the reaction equation by separating educts and products via '->', while denoting multiple educts/products with a plusign and stoichiometries by 'Y Molecule'. For instance the following describes an alcohol dehydrogenation '1 Ethanol + 1 NAD+ -> 1 Acetaldehyde + 1 NADH + 1 H+'. 
+            equation (string): Specifies the reaction equation by separating educts and products via '->', while denoting multiple educts/products with a plusign and stoichiometries by 'Y Molecule'. For instance the following describes an alcohol dehydrogenation '1 Ethanol + 1 NAD+ -> 1 Acetaldehyde + 1 NADH + 1 H+'.
 
         """
 
         self.reactions.append(
             Reactions(
-                name=name, temperature_value=temperature_value, temperature_unit=temperature_unit, ph_value=ph_value, educts=educts, products=products, modifiers=modifiers, equation=equation
+                name=name,
+                temperature_value=temperature_value,
+                temperature_unit=temperature_unit,
+                ph_value=ph_value,
+                educts=educts,
+                products=products,
+                modifiers=modifiers,
+                equation=equation,
             )
         )
-
 
     def add_vessels(
         self,
@@ -564,7 +583,7 @@ class EnzymeMl(DataverseBase):
         """Function used to add an instance of Vessels to the metadatablock.
 
         Args:
-        
+
             name (string): Specifies the exact production name of the vessel shoudl be given here (e.g. Eppendorf Tube)
             size (number): Specifies the volume value of the given vessel (e.g. '1')
             unit (Enum): Specifies the SI unit corresponding to the given vessel size value (e.g. 'mL')
@@ -572,8 +591,4 @@ class EnzymeMl(DataverseBase):
 
         """
 
-        self.vessels.append(
-            Vessels(
-                name=name, size=size, unit=unit, constant=constant
-            )
-        )
+        self.vessels.append(Vessels(name=name, size=size, unit=unit, constant=constant))

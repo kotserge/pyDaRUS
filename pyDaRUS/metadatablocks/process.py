@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 
@@ -361,7 +361,6 @@ class Process(DataverseBase):
     )
     _metadatablock_name: Optional[str] = 'process'
 
-
     def add_environments(
         self,
         name: Optional[str] = None,
@@ -372,7 +371,7 @@ class Process(DataverseBase):
         """Function used to add an instance of Environments to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the environment.
             compiler_names_and_flags (array): Name and flags of the used compilers.
             number_of_nodes (integer): Number of compute nodes inside a high performance cluster environment.
@@ -382,10 +381,12 @@ class Process(DataverseBase):
 
         self.environments.append(
             Environments(
-                name=name, compiler_names_and_flags=compiler_names_and_flags, number_of_nodes=number_of_nodes, ppn=ppn
+                name=name,
+                compiler_names_and_flags=compiler_names_and_flags,
+                number_of_nodes=number_of_nodes,
+                ppn=ppn,
             )
         )
-
 
     def add_instruments(
         self,
@@ -400,7 +401,7 @@ class Process(DataverseBase):
         """Function used to add an instance of Instruments to the metadatablock.
 
         Args:
-        
+
             name (string): Name of this instrument.
             description (string): Description of the instrument, e.g., what it is used for.
             version (string): The type or version of this instrument.
@@ -413,10 +414,15 @@ class Process(DataverseBase):
 
         self.instruments.append(
             Instruments(
-                name=name, description=description, version=version, part_number=part_number, serial_number=serial_number, software=software, location=location
+                name=name,
+                description=description,
+                version=version,
+                part_number=part_number,
+                serial_number=serial_number,
+                software=software,
+                location=location,
             )
         )
-
 
     def add_method_parameters(
         self,
@@ -429,7 +435,7 @@ class Process(DataverseBase):
         """Function used to add an instance of MethodParameters to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the parameter.
             symbol (string): The symbol used to describe this parameter.
             unit (string): The unit or scale of this parameter.
@@ -440,10 +446,13 @@ class Process(DataverseBase):
 
         self.method_parameters.append(
             MethodParameters(
-                name=name, symbol=symbol, unit=unit, value=value, textual_value=textual_value
+                name=name,
+                symbol=symbol,
+                unit=unit,
+                value=value,
+                textual_value=textual_value,
             )
         )
-
 
     def add_processing_methods(
         self,
@@ -454,7 +463,7 @@ class Process(DataverseBase):
         """Function used to add an instance of ProcessingMethods to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the method as free text.
             description (string): Description of the method as free text
             parameters (string): List of all parameter names relevant for this method (detailed information about parameters should be given under Method Parameters).
@@ -462,11 +471,8 @@ class Process(DataverseBase):
         """
 
         self.processing_methods.append(
-            ProcessingMethods(
-                name=name, description=description, parameters=parameters
-            )
+            ProcessingMethods(name=name, description=description, parameters=parameters)
         )
-
 
     def add_processing_steps(
         self,
@@ -484,7 +490,7 @@ class Process(DataverseBase):
         """Function used to add an instance of ProcessingSteps to the metadatablock.
 
         Args:
-        
+
             id (integer): Used to order the processing steps.
             type (Enum): Specifies the position in the data life cycle.
             date (string): Date this step has been performed.
@@ -500,10 +506,18 @@ class Process(DataverseBase):
 
         self.processing_steps.append(
             ProcessingSteps(
-                id=id, type=type, date=date, methods=methods, error_method=error_method, software=software, instruments=instruments, environment=environment, input=input, output=output
+                id=id,
+                type=type,
+                date=date,
+                methods=methods,
+                error_method=error_method,
+                software=software,
+                instruments=instruments,
+                environment=environment,
+                input=input,
+                output=output,
             )
         )
-
 
     def add_software(
         self,
@@ -518,7 +532,7 @@ class Process(DataverseBase):
         """Function used to add an instance of Software to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the software.
             version (string): Version of the software.
             id_type (Enum): The type of digital identifier used for this software (e.g., Digital Object Identifier (DOI)).
@@ -531,6 +545,12 @@ class Process(DataverseBase):
 
         self.software.append(
             Software(
-                name=name, version=version, id_type=id_type, id_number=id_number, citation=citation, url=url, license=license
+                name=name,
+                version=version,
+                id_type=id_type,
+                id_number=id_number,
+                citation=citation,
+                url=url,
+                license=license,
             )
         )

@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional, Union
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 
@@ -586,7 +586,6 @@ class EngMeta(DataverseBase):
     )
     _metadatablock_name: Optional[str] = 'engMeta'
 
-
     def add_boundary_conditions(
         self,
         flows: Optional[str] = None,
@@ -595,18 +594,15 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of BoundaryConditions to the metadatablock.
 
         Args:
-        
+
             flows (string): List of in- and outflows describing this boundary condition (detailed information about flows should be given under Flows).
             parameters (string): List of all parameter names relevant for this boundary condition (detailed information about parameters should be given under Boundary Parameters.
 
         """
 
         self.boundary_conditions.append(
-            BoundaryConditions(
-                flows=flows, parameters=parameters
-            )
+            BoundaryConditions(flows=flows, parameters=parameters)
         )
-
 
     def add_boundary_parameters(
         self,
@@ -618,7 +614,7 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of BoundaryParameters to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the parameter.
             symbol (string): The symbol used to describe this parameter.
             unit (string): The unit or scale of this parameter.
@@ -627,11 +623,8 @@ class EngMeta(DataverseBase):
         """
 
         self.boundary_parameters.append(
-            BoundaryParameters(
-                name=name, symbol=symbol, unit=unit, value=value
-            )
+            BoundaryParameters(name=name, symbol=symbol, unit=unit, value=value)
         )
-
 
     def add_controlled_variables(
         self,
@@ -646,7 +639,7 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of ControlledVariables to the metadatablock.
 
         Args:
-        
+
             name (string): Name of this variable.
             symbol (string): The symbol used to describe this variable.
             unit (string): The unit or scale of this variable.
@@ -659,10 +652,15 @@ class EngMeta(DataverseBase):
 
         self.controlled_variables.append(
             ControlledVariables(
-                name=name, symbol=symbol, unit=unit, value=value, minimum_value=minimum_value, maximum_value=maximum_value, textual_value=textual_value
+                name=name,
+                symbol=symbol,
+                unit=unit,
+                value=value,
+                minimum_value=minimum_value,
+                maximum_value=maximum_value,
+                textual_value=textual_value,
             )
         )
-
 
     def add_flows(
         self,
@@ -675,7 +673,7 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of Flows to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the flow.
             components (string): List of system component names this flow belongs to.
             shape (string): Shape of the flow.
@@ -686,10 +684,13 @@ class EngMeta(DataverseBase):
 
         self.flows.append(
             Flows(
-                name=name, components=components, shape=shape, size=size, position=position
+                name=name,
+                components=components,
+                shape=shape,
+                size=size,
+                position=position,
             )
         )
-
 
     def add_force_field(
         self,
@@ -699,18 +700,13 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of ForceField to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the force field.
             parameters (string): List of all parameter names relevant for this force field (detailed information about parameters should be given under Force Field Parameters entry).
 
         """
 
-        self.force_field.append(
-            ForceField(
-                name=name, parameters=parameters
-            )
-        )
-
+        self.force_field.append(ForceField(name=name, parameters=parameters))
 
     def add_force_field_parameters(
         self,
@@ -722,7 +718,7 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of ForceFieldParameters to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the parameter.
             symbol (string): The symbol used to describe this parameter.
             unit (string): The unit or scale of this parameter.
@@ -731,11 +727,8 @@ class EngMeta(DataverseBase):
         """
 
         self.force_field_parameters.append(
-            ForceFieldParameters(
-                name=name, symbol=symbol, unit=unit, value=value
-            )
+            ForceFieldParameters(name=name, symbol=symbol, unit=unit, value=value)
         )
-
 
     def add_measured_variables(
         self,
@@ -751,7 +744,7 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of MeasuredVariables to the metadatablock.
 
         Args:
-        
+
             name (string): Name of this variable.
             symbol (string): The symbol used to describe this variable.
             unit (string): The unit or scale of this variable.
@@ -765,10 +758,16 @@ class EngMeta(DataverseBase):
 
         self.measured_variables.append(
             MeasuredVariables(
-                name=name, symbol=symbol, unit=unit, error=error, error_description=error_description, minimum_value=minimum_value, maximum_value=maximum_value, textual_value=textual_value
+                name=name,
+                symbol=symbol,
+                unit=unit,
+                error=error,
+                error_description=error_description,
+                minimum_value=minimum_value,
+                maximum_value=maximum_value,
+                textual_value=textual_value,
             )
         )
-
 
     def add_spatial_resolution(
         self,
@@ -786,7 +785,7 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of SpatialResolution to the metadatablock.
 
         Args:
-        
+
             number_of_cells (integer): The number of 2D spatial cells.
             number_of_blocks (integer): The number of 3D spatial blocks.
             number_of_points_x (integer): The number of points in x-direction.
@@ -802,10 +801,18 @@ class EngMeta(DataverseBase):
 
         self.spatial_resolution.append(
             SpatialResolution(
-                number_of_cells=number_of_cells, number_of_blocks=number_of_blocks, number_of_points_x=number_of_points_x, number_of_points_y=number_of_points_y, number_of_points_z=number_of_points_z, interval_x=interval_x, interval_y=interval_y, interval_z=interval_z, unit=unit, scaling_formular=scaling_formular
+                number_of_cells=number_of_cells,
+                number_of_blocks=number_of_blocks,
+                number_of_points_x=number_of_points_x,
+                number_of_points_y=number_of_points_y,
+                number_of_points_z=number_of_points_z,
+                interval_x=interval_x,
+                interval_y=interval_y,
+                interval_z=interval_z,
+                unit=unit,
+                scaling_formular=scaling_formular,
             )
         )
-
 
     def add_system_or_phase_components(
         self,
@@ -822,7 +829,7 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of SystemOrPhaseComponents to the metadatablock.
 
         Args:
-        
+
             id (integer): Unique number that can be referred to in the metadata. Use if Name is not unique.
             name (string): Name of this component.
             description (string): Description of the component.
@@ -837,10 +844,17 @@ class EngMeta(DataverseBase):
 
         self.system_or_phase_components.append(
             SystemOrPhaseComponents(
-                id=id, name=name, description=description, inchicode=inchicode, smilescode=smilescode, iupac_name=iupac_name, quantity=quantity, unit=unit, force_field=force_field
+                id=id,
+                name=name,
+                description=description,
+                inchicode=inchicode,
+                smilescode=smilescode,
+                iupac_name=iupac_name,
+                quantity=quantity,
+                unit=unit,
+                force_field=force_field,
             )
         )
-
 
     def add_system_parameters(
         self,
@@ -853,7 +867,7 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of SystemParameters to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the parameter.
             symbol (string): The symbol used to describe this parameter.
             unit (string): The unit or scale of this parameter.
@@ -864,10 +878,13 @@ class EngMeta(DataverseBase):
 
         self.system_parameters.append(
             SystemParameters(
-                name=name, symbol=symbol, unit=unit, value=value, textual_value=textual_value
+                name=name,
+                symbol=symbol,
+                unit=unit,
+                value=value,
+                textual_value=textual_value,
             )
         )
-
 
     def add_system_phases(
         self,
@@ -877,18 +894,13 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of SystemPhases to the metadatablock.
 
         Args:
-        
+
             name (string): Name of a phase.
             components (string): List of all component names for this phase (detailed information about components should be given under System Components).
 
         """
 
-        self.system_phases.append(
-            SystemPhases(
-                name=name, components=components
-            )
-        )
-
+        self.system_phases.append(SystemPhases(name=name, components=components))
 
     def add_temporal_resolution(
         self,
@@ -900,7 +912,7 @@ class EngMeta(DataverseBase):
         """Function used to add an instance of TemporalResolution to the metadatablock.
 
         Args:
-        
+
             points (string): List of time points that describe the temporal resolution (if it can not be specified otherwise).
             number_of_time_steps (integer): The number of time points (with equidistant distance).
             interval (number): Distance between two time points.
@@ -910,6 +922,9 @@ class EngMeta(DataverseBase):
 
         self.temporal_resolution.append(
             TemporalResolution(
-                points=points, number_of_time_steps=number_of_time_steps, interval=interval, unit=unit
+                points=points,
+                number_of_time_steps=number_of_time_steps,
+                interval=interval,
+                unit=unit,
             )
         )

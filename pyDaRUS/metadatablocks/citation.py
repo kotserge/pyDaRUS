@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional, Union
 
-from easyDataverse.core import DataverseBase
+from easyDataverse.base import DataverseBase
 from pydantic import Field
 
 
@@ -949,7 +949,6 @@ class Citation(DataverseBase):
     )
     _metadatablock_name: Optional[str] = 'citation'
 
-
     def add_author(
         self,
         name: Optional[str] = None,
@@ -960,7 +959,7 @@ class Citation(DataverseBase):
         """Function used to add an instance of Author to the metadatablock.
 
         Args:
-        
+
             name (string): The author's Family Name, Given Name or the name of the organization responsible for this Dataset.
             affiliation (string): The organization with which the author is affiliated.
             identifier_scheme (Enum): Name of the identifier scheme (ORCID, ISNI).
@@ -970,10 +969,12 @@ class Citation(DataverseBase):
 
         self.author.append(
             Author(
-                name=name, affiliation=affiliation, identifier_scheme=identifier_scheme, identifier=identifier
+                name=name,
+                affiliation=affiliation,
+                identifier_scheme=identifier_scheme,
+                identifier=identifier,
             )
         )
-
 
     def add_contact(
         self,
@@ -984,19 +985,14 @@ class Citation(DataverseBase):
         """Function used to add an instance of Contact to the metadatablock.
 
         Args:
-        
+
             name (string): The contact's Family Name, Given Name or the name of the organization.
             affiliation (string): The organization with which the contact is affiliated.
             email (string): The e-mail address(es) of the contact(s) for the Dataset. This will not be displayed.
 
         """
 
-        self.contact.append(
-            Contact(
-                name=name, affiliation=affiliation, email=email
-            )
-        )
-
+        self.contact.append(Contact(name=name, affiliation=affiliation, email=email))
 
     def add_contributor(
         self,
@@ -1006,18 +1002,13 @@ class Citation(DataverseBase):
         """Function used to add an instance of Contributor to the metadatablock.
 
         Args:
-        
-            type (Enum): The type of contributor of the  resource.  
+
+            type (Enum): The type of contributor of the  resource.
             name (string): The Family Name, Given Name or organization name of the contributor.
 
         """
 
-        self.contributor.append(
-            Contributor(
-                type=type, name=name
-            )
-        )
-
+        self.contributor.append(Contributor(type=type, name=name))
 
     def add_date_of_collection(
         self,
@@ -1027,18 +1018,13 @@ class Citation(DataverseBase):
         """Function used to add an instance of DateOfCollection to the metadatablock.
 
         Args:
-        
+
             start (string): Date when the data collection started.
             end (string): Date when the data collection ended.
 
         """
 
-        self.date_of_collection.append(
-            DateOfCollection(
-                start=start, end=end
-            )
-        )
-
+        self.date_of_collection.append(DateOfCollection(start=start, end=end))
 
     def add_description(
         self,
@@ -1048,18 +1034,13 @@ class Citation(DataverseBase):
         """Function used to add an instance of Description to the metadatablock.
 
         Args:
-        
+
             text (string): A summary describing the purpose, nature, and scope of the Dataset.
             date (string): In cases where a Dataset contains more than one description (for example, one might be supplied by the data producer and another prepared by the data repository where the data are deposited), the date attribute is used to distinguish between the two descriptions. The date attribute follows the ISO convention of YYYY-MM-DD.
 
         """
 
-        self.description.append(
-            Description(
-                text=text, date=date
-            )
-        )
-
+        self.description.append(Description(text=text, date=date))
 
     def add_distributor(
         self,
@@ -1072,7 +1053,7 @@ class Citation(DataverseBase):
         """Function used to add an instance of Distributor to the metadatablock.
 
         Args:
-        
+
             name (string): Distributor name
             affiliation (string): The organization with which the distributor contact is affiliated.
             abbreviation (string): The abbreviation by which this distributor is commonly known (e.g., IQSS, ICPSR).
@@ -1083,10 +1064,13 @@ class Citation(DataverseBase):
 
         self.distributor.append(
             Distributor(
-                name=name, affiliation=affiliation, abbreviation=abbreviation, url=url, logo_url=logo_url
+                name=name,
+                affiliation=affiliation,
+                abbreviation=abbreviation,
+                url=url,
+                logo_url=logo_url,
             )
         )
-
 
     def add_grant_information(
         self,
@@ -1096,18 +1080,15 @@ class Citation(DataverseBase):
         """Function used to add an instance of GrantInformation to the metadatablock.
 
         Args:
-        
+
             grant_agency (string): Grant Number Agency
             grant_number (string): The grant or contract number of the project that  sponsored the effort.
 
         """
 
         self.grant_information.append(
-            GrantInformation(
-                grant_agency=grant_agency, grant_number=grant_number
-            )
+            GrantInformation(grant_agency=grant_agency, grant_number=grant_number)
         )
-
 
     def add_keyword(
         self,
@@ -1118,7 +1099,7 @@ class Citation(DataverseBase):
         """Function used to add an instance of Keyword to the metadatablock.
 
         Args:
-        
+
             term (string): Key terms that describe important aspects of the Dataset. Can be used for building keyword indexes and for classification and retrieval purposes. A controlled vocabulary can be employed. The vocab attribute is provided for specification of the controlled vocabulary in use, such as LCSH, MeSH, or others. The vocabURI attribute specifies the location for the full controlled vocabulary.
             vocabulary (string): For the specification of the keyword controlled vocabulary in use, such as LCSH, MeSH, or others.
             vocabulary_url (string): Keyword vocabulary URL points to the web presence that describes the keyword vocabulary, if appropriate. Enter an absolute URL where the keyword vocabulary web site is found, such as http://www.my.org.
@@ -1126,11 +1107,8 @@ class Citation(DataverseBase):
         """
 
         self.keyword.append(
-            Keyword(
-                term=term, vocabulary=vocabulary, vocabulary_url=vocabulary_url
-            )
+            Keyword(term=term, vocabulary=vocabulary, vocabulary_url=vocabulary_url)
         )
-
 
     def add_other_id(
         self,
@@ -1140,18 +1118,13 @@ class Citation(DataverseBase):
         """Function used to add an instance of OtherId to the metadatablock.
 
         Args:
-        
+
             agency (string): Name of agency which generated this identifier.
             identifier (string): Other identifier that corresponds to this Dataset.
 
         """
 
-        self.other_id.append(
-            OtherId(
-                agency=agency, identifier=identifier
-            )
-        )
-
+        self.other_id.append(OtherId(agency=agency, identifier=identifier))
 
     def add_producer(
         self,
@@ -1164,21 +1137,24 @@ class Citation(DataverseBase):
         """Function used to add an instance of Producer to the metadatablock.
 
         Args:
-        
+
             name (string): Producer name
             affiliation (string): The organization with which the producer is affiliated.
             abbreviation (string): The abbreviation by which the producer is commonly known. (ex. IQSS, ICPSR)
-            url (string): Producer URL points to the producer's web presence, if appropriate. Enter an absolute URL where the producer's web site is found, such as http://www.my.org.  
+            url (string): Producer URL points to the producer's web presence, if appropriate. Enter an absolute URL where the producer's web site is found, such as http://www.my.org.
             logo_url (string): URL for the producer's logo, which points to this  producer's web-accessible logo image. Enter an absolute URL where the producer's logo image is found, such as http://www.my.org/images/logo.gif.
 
         """
 
         self.producer.append(
             Producer(
-                name=name, affiliation=affiliation, abbreviation=abbreviation, url=url, logo_url=logo_url
+                name=name,
+                affiliation=affiliation,
+                abbreviation=abbreviation,
+                url=url,
+                logo_url=logo_url,
             )
         )
-
 
     def add_project(
         self,
@@ -1188,18 +1164,13 @@ class Citation(DataverseBase):
         """Function used to add an instance of Project to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the project.
             level (integer): The main project should get level zero. Subprojects can get higher levels.
 
         """
 
-        self.project.append(
-            Project(
-                name=name, level=level
-            )
-        )
-
+        self.project.append(Project(name=name, level=level))
 
     def add_related_publication(
         self,
@@ -1211,7 +1182,7 @@ class Citation(DataverseBase):
         """Function used to add an instance of RelatedPublication to the metadatablock.
 
         Args:
-        
+
             citation (string): The full bibliographic citation for this related publication.
             id_type (Enum): The type of digital identifier used for this publication (e.g., Digital Object Identifier (DOI)).
             id_number (string): The identifier for the selected ID type.
@@ -1225,7 +1196,6 @@ class Citation(DataverseBase):
             )
         )
 
-
     def add_series(
         self,
         name: Optional[str] = None,
@@ -1234,18 +1204,13 @@ class Citation(DataverseBase):
         """Function used to add an instance of Series to the metadatablock.
 
         Args:
-        
+
             name (string): Name of the dataset series to which the Dataset belongs.
             information (string): History of the series and summary of those features that apply to the series as a whole.
 
         """
 
-        self.series.append(
-            Series(
-                name=name, information=information
-            )
-        )
-
+        self.series.append(Series(name=name, information=information))
 
     def add_software(
         self,
@@ -1255,18 +1220,13 @@ class Citation(DataverseBase):
         """Function used to add an instance of Software to the metadatablock.
 
         Args:
-        
+
             name (string): Name of software used to generate the Dataset.
             version (string): Version of the software used to generate the Dataset.
 
         """
 
-        self.software.append(
-            Software(
-                name=name, version=version
-            )
-        )
-
+        self.software.append(Software(name=name, version=version))
 
     def add_storage(
         self,
@@ -1277,19 +1237,14 @@ class Citation(DataverseBase):
         """Function used to add an instance of Storage to the metadatablock.
 
         Args:
-        
+
             name (string): The name of the file, directory or archive.
-            location (string): The dns, path or url of the location the object is stored. 
+            location (string): The dns, path or url of the location the object is stored.
             size (string): The approximated size of the object. Give also Units.
 
         """
 
-        self.storage.append(
-            Storage(
-                name=name, location=location, size=size
-            )
-        )
-
+        self.storage.append(Storage(name=name, location=location, size=size))
 
     def add_time_period_covered(
         self,
@@ -1299,18 +1254,13 @@ class Citation(DataverseBase):
         """Function used to add an instance of TimePeriodCovered to the metadatablock.
 
         Args:
-        
+
             start (string): Start date which reflects the time period covered by the data, not the dates of coding or making documents machine-readable or the dates the data were collected.
             end (string): End date which reflects the time period covered by the data, not the dates of coding or making documents machine-readable or the dates the data were collected.
 
         """
 
-        self.time_period_covered.append(
-            TimePeriodCovered(
-                start=start, end=end
-            )
-        )
-
+        self.time_period_covered.append(TimePeriodCovered(start=start, end=end))
 
     def add_topic_classification(
         self,
@@ -1321,7 +1271,7 @@ class Citation(DataverseBase):
         """Function used to add an instance of TopicClassification to the metadatablock.
 
         Args:
-        
+
             term (string): Topic or Subject term that is relevant to this Dataset.
             vocabulary (string): Provided for specification of the controlled vocabulary in use, e.g., LCSH, MeSH, etc.
             vocabulary_url (string): Specifies the URL location for the full controlled vocabulary.
